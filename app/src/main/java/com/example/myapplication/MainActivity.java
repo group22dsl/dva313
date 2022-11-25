@@ -1,8 +1,8 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
-import android.telecom.Call;
 import android.view.View;
 import android.widget.ListView;
 
@@ -26,6 +26,10 @@ public class MainActivity extends AppCompatActivity {
 
         databaseListView = findViewById(R.id.database_list);
         setUpAdapter();
+
+        IntentFilter intentFilter = new IntentFilter("jason.wei.custom.intent.action.TEST");
+        IncomingBroadcastReceiver incomingBroadcastReceiver = new IncomingBroadcastReceiver();
+        registerReceiver(incomingBroadcastReceiver, intentFilter);
     }
 
     public void setUpAdapter()

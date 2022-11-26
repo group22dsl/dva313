@@ -13,6 +13,8 @@ public class DetailsActivity extends AppCompatActivity {
 
     public EditText title;
     public EditText description;
+    private TODOTask task;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,12 +23,36 @@ public class DetailsActivity extends AppCompatActivity {
 
         title = (EditText) findViewById(R.id.title_input);
         description = (EditText) findViewById(R.id.description_input);
+        task = null;
+
+        Intent intent = getIntent();
+
+        Bundle bundle = intent.getExtras();
+
+        if (bundle != null)
+        {
+            int id = bundle.getInt(MainActivity.TASK_ID);
+            task = Database.getDatabase(this).dao().getTask(id);
+
+            title.setText(task.getTitle());
+            description.setText(task.getDescription());
+        }
     }
 
     public void onSave(View view)
     {
-        TODOTask task = new TODOTask(title.getText().toString(), description.getText().toString());
-        Database.getDatabase(this).dao().addTask(task);
+
+        if (task != null)
+        {
+            TODOTask updateTask = new TODOTask(task.getId(), title.getText().toString(), description.getText().toString());
+            Database.getDatabase(this).dao().updateTask(updateTask);
+        }
+        else
+        {
+            TODOTask task = new TODOTask(title.getText().toString(), description.getText().toString());
+            Database.getDatabase(this).dao().addTask(task);
+
+        }
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
@@ -39,8 +65,14 @@ public class DetailsActivity extends AppCompatActivity {
     }
     public void onDelete(View view)
     {
-
+        TODOTask deleteTask = new TODOTask(task.getId(), title.getText().toString(), description.getText().toString());
+        Database.getDatabase(this).dao().deleteTask(deleteTask);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
+
+
+
 
 
 

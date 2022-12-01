@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,6 +21,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        MyBroadcastReceiver myBroadcastReceiver = new MyBroadcastReceiver();
+        IntentFilter myFilter = new IntentFilter("testData");
+        registerReceiver(myBroadcastReceiver, myFilter);
 
         databaseListView = (ListView) findViewById(R.id.database_list);
 

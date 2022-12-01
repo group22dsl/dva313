@@ -42,13 +42,8 @@ public class FiltersActivity extends AppCompatActivity {
         }
         else
         {
-            Database.getDatabase(this).appFiltersDAO().addAppFilter(
-                    new APPFilters(
-                            filter.getId(),
-                            name.getText().toString(),
-                            false, false
-                    )
-            );
+            APPFilters createFilter = new APPFilters(name.getText().toString(), false, false);
+            Database.getDatabase(this).appFiltersDAO().addAppFilter(createFilter);
         }
         Intent intent = new Intent(this, APPFiltersActivity.class);
         startActivity(intent);

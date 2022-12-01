@@ -11,7 +11,7 @@ import android.widget.Toast;
 public class FiltersActivity extends AppCompatActivity {
 
     private EditText name;
-    private APPFilters filter;
+    private APPFilters filter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,8 +19,6 @@ public class FiltersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_filters);
 
         name = (EditText) findViewById(R.id.app_name_text);
-
-        filter = null;
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -39,13 +37,18 @@ public class FiltersActivity extends AppCompatActivity {
     {
         if(filter != null)
         {
-            APPFilters updateFilter = new APPFilters(filter.getId(), name.getText().toString(), true, true);
-            Database.getDatabase(this).appFiltersDAO().updateAPPFilter(updateFilter);
+            filter.setAPP_NAME(name.getText().toString());
+            Database.getDatabase(this).appFiltersDAO().updateAPPFilter(filter);
         }
         else
         {
-            APPFilters createFilter = new APPFilters(name.getText().toString(), true, true);
-            Database.getDatabase(this).appFiltersDAO().addAppFilter(createFilter);
+            Database.getDatabase(this).appFiltersDAO().addAppFilter(
+                    new APPFilters(
+                            filter.getId(),
+                            name.getText().toString(),
+                            false, false
+                    )
+            );
         }
         Intent intent = new Intent(this, APPFiltersActivity.class);
         startActivity(intent);
@@ -59,8 +62,7 @@ public class FiltersActivity extends AppCompatActivity {
 
     public void deleteButton(View view)
     {
-        APPFilters deleteFilter = new APPFilters(filter.getId(), name.getText().toString(), true, true);
-        Database.getDatabase(this).appFiltersDAO().deleteAPPFilter(deleteFilter);
+        Database.getDatabase(this).appFiltersDAO().deleteAPPFilter(filter);
         Intent intentDelete = new Intent(this, APPFiltersActivity.class);
         startActivity(intentDelete);
     }

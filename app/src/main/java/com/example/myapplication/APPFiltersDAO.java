@@ -12,17 +12,17 @@ import java.util.List;
 public interface APPFiltersDAO {
 
     @Insert
-    public void addAppFilter(APPFilters appFilters);
+    void addAppFilter(APPFilters appFilters);
 
     @Query("SELECT * FROM APP_FILTERS")
-    public List<APPFilters> getAllFilters();
+    List<APPFilters> getAllFilters();
 
     @Query("SELECT * FROM APP_FILTERS WHERE id = :app_filter_id LIMIT 1")
-    public APPFilters getAPPFilter (int app_filter_id);
+    APPFilters getAPPFilter (int app_filter_id);
 
     @Delete
-    public void deleteAPPFilter(APPFilters appFilters);
+    void deleteAPPFilter(APPFilters toDelete);
 
     @Update
-    public void updateAPPFilter(APPFilters appFilters);
+    void updateAPPFilter(APPFilters appFilters);
 }

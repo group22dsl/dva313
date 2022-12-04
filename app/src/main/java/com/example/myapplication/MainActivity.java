@@ -1,15 +1,21 @@
 package com.example.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +30,23 @@ public class MainActivity extends AppCompatActivity {
 
         MyBroadcastReceiver myBroadcastReceiver = new MyBroadcastReceiver();
         IntentFilter myFilter = new IntentFilter("testData");
+
+        SharedPreferences sharedpreferences = getSharedPreferences("appSettings", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+
+        //this should get from DB
+        String[] listOfExistingScores = {"com.example.a", "true", "Three"};
+        //end
+
+        Set<String> set = new HashSet<String>();
+        for(int l=0; l<listOfExistingScores.length; l++){
+            set.add(listOfExistingScores[l]);
+        }
+
+        editor.putStringSet("whiteList", set);
+
+        editor.commit(); // commit changes
+
         registerReceiver(myBroadcastReceiver, myFilter);
 
         databaseListView = (ListView) findViewById(R.id.database_list);

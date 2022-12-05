@@ -18,7 +18,32 @@
             android:enabled="true"
             android:exported="true"></receiver>
         <activity
+            android:name=".FiltersActivity"
+            android:parentActivityName=".APPFiltersActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".TODOTaskActivity"
+            android:parentActivityName=".MainActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".APPFiltersActivity"
+            android:parentActivityName=".MainActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".DetailsActivity"
+            android:parentActivityName=".TODOTaskActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

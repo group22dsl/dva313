@@ -31,7 +31,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         if (bundle != null)
         {
-            int id = bundle.getInt(MainActivity.TASK_ID);
+            int id = bundle.getInt(TODOTaskActivity.TASK_ID);
             task = Database.getDatabase(this).dao().getTask(id);
 
             title.setText(task.getTitle());
@@ -54,20 +54,20 @@ public class DetailsActivity extends AppCompatActivity {
 
         }
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, TODOTaskActivity.class);
         startActivity(intent);
     }
 
     public void onCancel(View view)
     {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, TODOTaskActivity.class);
         startActivity(intent);
     }
     public void onDelete(View view)
     {
         TODOTask deleteTask = new TODOTask(task.getId(), title.getText().toString(), description.getText().toString());
         Database.getDatabase(this).dao().deleteTask(deleteTask);
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, TODOTaskActivity.class);
         startActivity(intent);
     }
 

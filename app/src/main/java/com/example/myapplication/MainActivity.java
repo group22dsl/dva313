@@ -1,7 +1,9 @@
 package com.example.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,13 +11,11 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
-
-    public ListView databaseListView;
-    public static final String TASK_ID = "";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,33 +24,32 @@ public class MainActivity extends AppCompatActivity {
 
         MyBroadcastReceiver myBroadcastReceiver = new MyBroadcastReceiver();
         IntentFilter myFilter = new IntentFilter("testData");
-        registerReceiver(myBroadcastReceiver, myFilter);
 
-        databaseListView = (ListView) findViewById(R.id.database_list);
+        SharedPreferences sharedpreferences = getSharedPreferences("appSettings", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
 
-        List<TODOTask> tasks = Database.getDatabase(this).dao().getAllTasks();
+        //this should get from DB
+        String[] listOfExistingScores = {"com.example.a", "true", "Three"};
+        //end
 
-        CustomListViewAdapter adapter = new CustomListViewAdapter(this, tasks);
-        databaseListView.setAdapter(adapter);
+        Set<String> set = new HashSet<String>();
+        for(int l=0; l<listOfExistingScores.length; l++){
+            set.add(listOfExistingScores[l]);
+        }
 
-        databaseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                TODOTask task = (TODOTask) adapterView.getItemAtPosition(i);
+        editor.putStringSet("whiteList", set);
 
-                Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
-                intent.putExtra(TASK_ID, task.getId());
+        editor.commit(); // commit changes
+;    }
 
-                startActivity(intent);
-            }
-        });
-    }
-
-
-
-    public void onAddClick(View view)
-    {
-        Intent intent = new Intent(this, DetailsActivity.class);
+    public void onSelectTodo(View view){
+        Intent intent = new Intent(MainActivity.this, TODOTaskActivity.class);
         startActivity(intent);
     }
+
+    public void onSelectAPPFilters(View view){
+        Intent intent = new Intent(MainActivity.this, APPFiltersActivity.class);
+        startActivity(intent);
+    }
+
 }

@@ -10,18 +10,19 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
-@androidx.room.Database(entities = {TODOTask.class}, version = 1)
+@androidx.room.Database(entities = {TODOTask.class, APPFilters.class}, version = 2)
 public abstract class Database extends RoomDatabase {
 
     public static Database INSTANCE = null;
     public abstract DAO dao();
+    public abstract APPFiltersDAO appFiltersDAO();
 
 
     public static Database getDatabase(Context context)
     {
         if (INSTANCE == null)
         {
-            INSTANCE = Room.databaseBuilder(context, Database.class, "todo_database").allowMainThreadQueries().build();
+            INSTANCE = Room.databaseBuilder(context, Database.class, "database").allowMainThreadQueries().build();
         }
         return INSTANCE;
     }

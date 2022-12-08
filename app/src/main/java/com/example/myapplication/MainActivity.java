@@ -1,56 +1,29 @@
 package com.example.myapplication;
 
-import static android.os.PersistableBundle.readFromStream;
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.net.Uri;
-
-import android.os.Build;
 import android.os.Bundle;
-import android.renderscript.ScriptGroup;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
-import android.os.Handler;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientFactory;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.Timer;
-import java.util.logging.LogRecord;
+
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -71,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try  {
-                    request();
+                    requestConfiguration();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -100,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
         editor.commit(); // commit changes
 ;    }
 
-
     public void onSelectTodo(View view){
         Intent intent = new Intent(MainActivity.this, TODOTaskActivity.class);
         startActivity(intent);
@@ -110,41 +82,35 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, APPFiltersActivity.class);
         startActivity(intent);
     }
-    public void request() throws IOException{
+    public void requestConfiguration() throws IOException{
         OkHttpClient client = new OkHttpClient();
-        String credential = Credentials.basic("Marten","Mårten Pass Pot Cloud 789!");
         Request request = new Request.Builder()
-                .addHeader("Authorization",credential)
-                .url("https://nextcloud.thepotatoservices.com/s/mGaCFbGynG7cLq7")
+                .url("https://nextcloud.thepotatoservices.com/s/mGaCFbGynG7cLq7/download/test.json")
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 e.printStackTrace();
-                Log.d("Error", "Error");
+                Log.d("HTTP_REQUEST", "HTTP request failed, Error: " + e);
             }
-
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-
-                if (response.isSuccessful()) {
-                    Log.v("tetete","test");
-                    ResponseBody responseBody = response.body();
-                    String resStr = response.body().string();
-                    try {
-                        JSONObject json = new JSONObject(resStr);
-                        json.toString();
-                        Log.v("tetete","test");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                   // Log.v("tetete","test");
-                    //TODO save into dbobject and then call updateDB(DBobject)
+                String jsonStr = response.body().string();
+                try
+                {
+                    JSONObject data = new JSONObject(jsonStr);
+                    Log.v("HTTP_REQUEST", "Json Created, contents: " + data);
+                }
+                catch (JSONException e)
+                {
+                    Log.d("HTTP_REQUEST", "HTTP Request error: " + e);
+                    Log.d("HTTP_REQUEST", "HTTP result was: " + jsonStr);
+                    e.printStackTrace();
                 }
             }
         });
     }
+
 
 }

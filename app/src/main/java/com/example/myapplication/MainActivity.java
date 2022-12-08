@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         String credential = Credentials.basic("Marten","Mårten Pass Pot Cloud 789!");
         Request request = new Request.Builder()
                 .addHeader("Authorization",credential)
-                .url("https://nextcloud.thepotatoservices.com/apps/files/?dir=/&openfile=19693")
+                .url("https://nextcloud.thepotatoservices.com/s/mGaCFbGynG7cLq7")
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -127,17 +127,20 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+
                 if (response.isSuccessful()) {
+                    Log.v("tetete","test");
                     ResponseBody responseBody = response.body();
                     String resStr = response.body().string();
                     try {
                         JSONObject json = new JSONObject(resStr);
                         json.toString();
+                        Log.v("tetete","test");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
-                    Log.v("tetete","test");
+                   // Log.v("tetete","test");
                     //TODO save into dbobject and then call updateDB(DBobject)
                 }
             }

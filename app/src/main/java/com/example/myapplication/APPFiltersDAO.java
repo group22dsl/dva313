@@ -27,6 +27,4 @@ public interface APPFiltersDAO {
     @Update
     void updateAPPFilter(APPFilters appFilters);
 
-    @WorkerThread
-    abstract void clearAllTables();
 }

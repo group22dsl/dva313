@@ -97,13 +97,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String jsonStr = response.body().string();
-                try
-                {
+                try {
                     JSONObject data = new JSONObject(jsonStr);
                     Log.v("HTTP_REQUEST", "Json Created, contents: " + data);
-                }
-                catch (JSONException e)
-                {
+                } catch (JSONException e) {
                     Log.d("HTTP_REQUEST", "HTTP Request error: " + e);
                     Log.d("HTTP_REQUEST", "HTTP result was: " + jsonStr);
                     e.printStackTrace();

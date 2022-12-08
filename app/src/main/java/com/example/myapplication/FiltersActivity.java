@@ -61,4 +61,12 @@ public class FiltersActivity extends AppCompatActivity {
         Intent intentDelete = new Intent(this, APPFiltersActivity.class);
         startActivity(intentDelete);
     }
+
+    public void clearTablesButton(View view)
+    {
+        Database.getDatabase(this).appFiltersDAO().clearAllTables();
+        Intent intentClear = new Intent(this, APPFiltersActivity.class);
+        startActivity(intentClear);
+    }
+
 }

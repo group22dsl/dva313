@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import androidx.annotation.WorkerThread;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -25,4 +26,7 @@ public interface APPFiltersDAO {
 
     @Update
     void updateAPPFilter(APPFilters appFilters);
+
+    @WorkerThread
+    abstract void clearAllTables();
 }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -43,5 +44,13 @@ public class APPFiltersActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(this, FiltersActivity.class);
         startActivity(intent);
+    }
+
+    public void clearTablesButton(View view)
+    {
+        Database.getDatabase(this).appFiltersDAO().clearTable();
+        Intent intentClear = new Intent(this, APPFiltersActivity.class);
+        startActivity(intentClear);
+        Toast.makeText(this, "Successfully deleted all tables", Toast.LENGTH_SHORT).show();
     }
 }

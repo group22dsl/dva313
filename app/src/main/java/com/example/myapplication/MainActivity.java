@@ -52,4 +52,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onSelectAPPSetings(View view)
+    {
+        Intent intent = new Intent(MainActivity.this, APPSettingsActivity.class);
+        startActivity(intent);
+    }
+
 }

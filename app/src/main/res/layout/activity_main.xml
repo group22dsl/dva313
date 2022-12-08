@@ -58,16 +58,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@android:drawable/arrow_down_float" />
 
-    <TextView
-        android:id="@+id/blabla"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/select_settings"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="SELECT"
-        android:textSize="60sp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:onClick="onSelectAPPSetings"
+        android:text="Select App settings"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.482" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

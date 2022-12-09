@@ -6,12 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:onClick="resetTables"
-    tools:context=".APPSettingsActivity">
+    tools:context=".SettingsTableView">
 
     <ListView
         android:id="@+id/database_list_Appsettings"
-        android:layout_width="410dp"
-        android:layout_height="582dp"
+        android:layout_width="411dp"
+        android:layout_height="471dp"
         app:layout_constraintBottom_toTopOf="@+id/resetTableButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -22,19 +22,14 @@
 
     <Button
         android:id="@+id/add_settings_to_database"
-        android:layout_width="0dp"
+        android:layout_width="379dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="496dp"
         android:onClick="onAdd"
         android:text="@string/add_to_database"
-        app:layout_constraintBottom_toTopOf="@+id/database_list_Appsettings"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintBottom_toTopOf="@+id/resetTableButton"
+        app:layout_constraintEnd_toEndOf="@+id/database_list_Appsettings"
+        app:layout_constraintStart_toStartOf="@+id/database_list_Appsettings" />
 
     <Button
         android:id="@+id/resetTableButton"

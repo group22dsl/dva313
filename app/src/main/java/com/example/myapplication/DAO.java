@@ -12,18 +12,18 @@ import java.util.List;
 public interface DAO {
 
     @Insert
-    public void addTask(TODOTask todoTask);
+    void addTask(TODOTask todoTask);
 
     @Query("SELECT * FROM todo_tasks")
-    public List<TODOTask> getAllTasks();
+    List<TODOTask> getAllTasks();
 
     @Query("SELECT * FROM todo_tasks WHERE id = :taskId LIMIT 1")
-    public TODOTask getTask (int taskId);
+    TODOTask getTask (int taskId);
 
     @Delete
-    public void deleteTask(TODOTask todoTask);
+    void deleteTask(TODOTask todoTask);
 
     @Update
-    public void updateTask(TODOTask todoTask);
+    void updateTask(TODOTask todoTask);
 
 }

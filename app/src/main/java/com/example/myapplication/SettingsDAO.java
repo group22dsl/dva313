@@ -12,19 +12,19 @@ import java.util.List;
 public interface SettingsDAO {
 
     @Insert
-    void addSettings(APPSettings appSettings);
+    void addSettings(SettingsEntry appSettings);
 
     @Query("SELECT * FROM Settings")
-    List<APPSettings> getAllSettings();
+    List<SettingsEntry> getAllSettings();
 
-    @Query("SELECT * FROM Settings WHERE id = :settings_id LIMIT 1")
-    APPSettings getSettings (int settings_id);
+    @Query("SELECT * FROM Settings WHERE id = :ID LIMIT 1")
+    SettingsEntry getSettings (int ID);
 
     @Delete
-    void deleteAPPSettings(APPSettings toDelete);
+    void deleteAPPSettings(SettingsEntry toDelete);
 
     @Update
-    void updateAPPSettings(APPSettings appSettings);
+    void updateAPPSettings(SettingsEntry appSettings);
 
     @Query("DELETE FROM Settings")
     void resetTable();

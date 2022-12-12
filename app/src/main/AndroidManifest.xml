@@ -13,15 +13,14 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".SettingsActivity"
-            android:parentActivityName=".APPSettingsActivity"
+            android:name=".SettingsEntryView"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".APPSettingsActivity"
+            android:name=".SettingsTableView"
             android:label="Settings table"
             android:parentActivityName=".MainActivity"
             android:exported="false">
@@ -35,10 +34,10 @@
             android:exported="true" />
 
         <activity
-            android:name=".FiltersActivity"
-            android:label="Filter"
+            android:name=".WhitelistEntryView"
+            android:label="Whitelist Entry"
             android:exported="false"
-            android:parentActivityName=".APPFiltersActivity">
+            android:parentActivityName=".WhitelistTableView">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -52,8 +51,9 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".APPFiltersActivity"
-            android:label="Filters Table"
+            android:name=".WhitelistTableView"
+            android:label="Whitelist Table"
+
             android:exported="false"
             android:parentActivityName=".MainActivity">
             <meta-data

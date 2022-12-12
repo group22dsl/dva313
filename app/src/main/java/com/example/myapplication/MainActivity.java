@@ -15,6 +15,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.google.gson.Gson;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -29,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedpreferences.edit();
 
         //this settings should get from DB
-        String[] listOfSettings = {"com.example.a", "true", "Three"};
+
+        String[] listOfSettings = {{"AppID": 1, "AppName": "nuwan"}, {"AppID": 1, "AppName": "nuwan"}}
         //end
 
         Set<String> set = new HashSet<String>();

@@ -28,19 +28,21 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedpreferences = getSharedPreferences("appSettings", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
 
-        //this should get from DB
-        String[] listOfExistingScores = {"com.example.a", "true", "Three"};
+        //this settings should get from DB
+        String[] listOfSettings = {"com.example.a", "true", "Three"};
         //end
 
         Set<String> set = new HashSet<String>();
-        for(int l=0; l<listOfExistingScores.length; l++){
-            set.add(listOfExistingScores[l]);
+        for(int l=0; l<listOfSettings.length; l++){
+            set.add(listOfSettings[l]);
         }
 
-        editor.putStringSet("whiteList", set);
+        editor.putStringSet("settings", set);
 
         editor.commit(); // commit changes
-;    }
+
+        saveDataFromsharedPrefToJson(listOfSettings, editor);
+    }
 
     public void onSelectTodo(View view){
         Intent intent = new Intent(MainActivity.this, TODOTaskActivity.class);
@@ -52,4 +54,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    //This method should save Settings and Whitelist data from shared preferences to Json
+    public void saveDataFromsharedPrefToJson(String[] dataFromDB, SharedPreferences.Editor spEditor){
+        Gson gson = new Gson();
+        String savedSettings = gson.toJson(dataFromDB);
+        spEditor.put("Settings", savedSettings);
+        spEditor.commit();
+    }
 }

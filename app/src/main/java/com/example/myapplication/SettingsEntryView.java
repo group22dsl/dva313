@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -45,7 +46,6 @@ public class SettingsEntryView extends AppCompatActivity {
         else
         {
             SettingsEntry createSettings = new SettingsEntry(
-                    Integer.parseInt(SettingsTableView.ENTRY_ID),
                     name.getText().toString(),
                     value.getText().toString()
             );
@@ -62,12 +62,17 @@ public class SettingsEntryView extends AppCompatActivity {
         startActivity(intentCancel);
     }
 
-    public void deleteButton(View view)
-    {
-        Database.getDatabase(this).settingsDAO().deleteAPPSettings(settings);
-        Intent intentDelete = new Intent(this, SettingsTableView.class);
-        startActivity(intentDelete);
+    public void deleteButton(View view) {
+        if (settings != null)
+        {
+            Database.getDatabase(this).settingsDAO().deleteAPPSettings(settings);
+            Intent intentDelete = new Intent(this, SettingsTableView.class);
+            startActivity(intentDelete);
+        }
+        else
+        {
+            Toast.makeText(this, "There is nothing to delete.", Toast.LENGTH_SHORT).show();
+        }
     }
-
 
 }

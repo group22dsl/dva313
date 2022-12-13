@@ -25,4 +25,8 @@ public interface WhitelistDAO {
 
     @Update
     void updateWhitelist(whitelistEntry toUpdate);
+
+    @Query("DELETE FROM WHITELIST")
+    void resetTable();
+
 }

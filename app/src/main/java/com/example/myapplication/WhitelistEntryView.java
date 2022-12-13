@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -57,9 +58,16 @@ public class WhitelistEntryView extends AppCompatActivity {
 
     public void deleteButton(View view)
     {
-        Database.getDatabase(this).whitelistDAO().deleteWhitelist(WhitelistEntry);
-        Intent intentDelete = new Intent(this, WhitelistTableView.class);
-        startActivity(intentDelete);
+        if (WhitelistEntry != null)
+        {
+            Database.getDatabase(this).whitelistDAO().deleteWhitelist(WhitelistEntry);
+            Intent intentDelete = new Intent(this, WhitelistTableView.class);
+            startActivity(intentDelete);
+        }
+        else
+        {
+            Toast.makeText(this, "There is nothing to delete.", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

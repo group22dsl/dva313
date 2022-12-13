@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#232289">
+    android:background="#232289"
     tools:context=".WhitelistEntryView">
 
     <EditText
@@ -29,10 +29,13 @@
         android:id="@+id/send_freq_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
         android:ems="10"
         android:hint="Enter Send Frequency"
         android:inputType="number"
         android:minHeight="48dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/name_text"
         app:layout_constraintHorizontal_bias="0.0"
@@ -45,46 +48,48 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:background="@drawable/style"
         android:backgroundTint="#d3d8db"
         android:onClick="saveButton"
         android:text="@string/save"
         android:textColor="#232289"
-        android:background="@drawable/style"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.049"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/send_freq_num"
-        app:layout_constraintVertical_bias="0.885" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/button_delete_app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/style"
+        android:backgroundTint="#d3d8db"
         android:onClick="deleteButton"
         android:text="delete"
         android:textColor="#232289"
-        android:backgroundTint="#d3d8db"
-        android:background="@drawable/style"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button_cancel_app"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/style"
+        android:backgroundTint="#d3d8db"
         android:onClick="cancelButton"
         android:text="@string/cancel"
-        android:background="@drawable/style"
         android:textColor="#232289"
-        android:backgroundTint="#d3d8db"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintHorizontal_bias="0.472"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

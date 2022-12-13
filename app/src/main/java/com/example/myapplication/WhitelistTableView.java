@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -37,5 +38,13 @@ public class WhitelistTableView extends AppCompatActivity {
     {
         Intent intent = new Intent(this, WhitelistEntryView.class);
         startActivity(intent);
+    }
+
+    public void clearTable(View view)
+    {
+        Database.getDatabase(this).whitelistDAO().resetTable();
+        Intent intentClear = new Intent(this, WhitelistTableView.class);
+        startActivity(intentClear);
+        Toast.makeText(this, "Successfully deleted all tables", Toast.LENGTH_SHORT).show();
     }
 }

@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "Settings")
@@ -15,6 +16,12 @@ public class SettingsEntry {
 
     @ColumnInfo(name = "value")
     private String VALUE;
+
+    @Ignore
+    public SettingsEntry(String NAME, String VALUE) {
+        this.NAME = NAME;
+        this.VALUE = VALUE;
+    }
 
     public SettingsEntry(int id, String NAME, String VALUE) {
         this.id = id;

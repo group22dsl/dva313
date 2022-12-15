@@ -12,39 +12,58 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
-        <!--TODO add intent filter -->
+        <activity
+            android:name=".SettingsEntryView"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".SettingsTableView"
+            android:label="Settings table"
+            android:parentActivityName=".MainActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity> <!-- TODO add intent filter -->
         <receiver
             android:name=".MyBroadcastReceiver"
             android:enabled="true"
-            android:exported="true"></receiver>
+            android:exported="true" />
+
         <activity
-            android:name=".FiltersActivity"
-            android:parentActivityName=".APPFiltersActivity"
-            android:exported="false">
+            android:name=".WhitelistEntryView"
+            android:label="Whitelist Entry"
+            android:exported="false"
+            android:parentActivityName=".WhitelistTableView">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".TODOTaskActivity"
-            android:parentActivityName=".MainActivity"
-            android:exported="false">
+            android:exported="false"
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".APPFiltersActivity"
-            android:parentActivityName=".MainActivity"
-            android:exported="false">
+            android:name=".WhitelistTableView"
+            android:label="Whitelist Table"
+
+            android:exported="false"
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".DetailsActivity"
-            android:parentActivityName=".TODOTaskActivity"
-            android:exported="false">
+            android:exported="false"
+            android:parentActivityName=".TODOTaskActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -52,7 +71,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
+            android:label="Main Activity"
             android:theme="@style/Theme.MyApplication.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -64,6 +83,10 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

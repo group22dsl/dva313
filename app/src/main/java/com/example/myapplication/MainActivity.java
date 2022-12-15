@@ -6,13 +6,10 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_menu);
 
         MyBroadcastReceiver myBroadcastReceiver = new MyBroadcastReceiver();
         IntentFilter myFilter = new IntentFilter("testData");
@@ -49,8 +46,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onSelectAPPFilters(View view){
-        Intent intent = new Intent(MainActivity.this, APPFiltersActivity.class);
+    public void onSelectWhitelist(View view){
+        Intent intent = new Intent(MainActivity.this, WhitelistTableView.class);
+        startActivity(intent);
+    }
+
+    public void onSelectSettings(View view)
+    {
+        Intent intent = new Intent(MainActivity.this, SettingsTableView.class);
         startActivity(intent);
     }
 

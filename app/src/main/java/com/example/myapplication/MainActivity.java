@@ -47,39 +47,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_menu);
 
-
         //  TODO CREATE THREAD, TEST TIMER 5SECONDS DONE !
         //  TODO PARSE JSON FILE INTO DBOBJECT
         //  TODO CHANGE SETTING WITH FUNCTION
 
-
-        Thread threadSender = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    sendAnalytics();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        Thread threadReceiver = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    requestConfiguration();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        threadReceiver.start();
-        threadSender.start();
-
+        startListeningThreads();
+        startPostingThread();
         MyBroadcastReceiver myBroadcastReceiver = new MyBroadcastReceiver();
         IntentFilter myFilter = new IntentFilter("testData");
+        registerReceiver(myBroadcastReceiver, myFilter);
 
         SharedPreferences sharedpreferences = getSharedPreferences("appSettings", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -96,7 +72,35 @@ public class MainActivity extends AppCompatActivity {
         editor.putStringSet("whiteList", set);
 
         editor.commit(); // commit changes
-        ;
+    }
+
+    public void startListeningThreads(){
+        Thread threadReceiver = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    requestConfiguration();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        threadReceiver.start();
+    }
+    public void startPostingThread(){
+        Thread threadSender = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    sendAnalytics();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        threadSender.start();
     }
 
     public void onSelectWhitelist(View view){
@@ -137,9 +141,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     public void sendAnalytics() throws IOException, JSONException {
-        String user = "Marten";
-        String pass = "Mårten Pass Pot Cloud 789!";
-        String credential = Credentials.basic(user,pass);
         OkHttpClient client = new OkHttpClient();
         MediaType JSON = MediaType.get("application/json; charset=utf-8");
         JSONObject json = new JSONObject();
@@ -149,9 +150,7 @@ public class MainActivity extends AppCompatActivity {
 
         RequestBody body = RequestBody.create(json.toString(), JSON);
         Request request = new Request.Builder()
-                .url("https://nextcloud.thepotatoservices.com/apps/files/?dir=/DVA313%20-%20Software%20Engineering%202&fileid=15430")
-                .addHeader("Authorization",credential)
-                //      .url("https://teeee.free.beeceptor.com")
+                .url("https://testretreuyguy.free.beeceptor.com/")
                 .post(body)
                 .build();
 

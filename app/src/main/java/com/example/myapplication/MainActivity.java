@@ -50,20 +50,30 @@ public class MainActivity extends AppCompatActivity {
         //  TODO CHANGE SETTING WITH FUNCTION
 
 
-        Thread thread = new Thread(new Runnable() {
+        Thread threadSender = new Thread(new Runnable() {
 
             @Override
             public void run() {
                 try {
-                    //requestConfiguration();
                     sendAnalytics();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
+        Thread threadReceiver = new Thread(new Runnable() {
 
-        thread.start();
+            @Override
+            public void run() {
+                try {
+                    requestConfiguration();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        threadReceiver.start();
+        threadSender.start();
 
         MyBroadcastReceiver myBroadcastReceiver = new MyBroadcastReceiver();
         IntentFilter myFilter = new IntentFilter("testData");
@@ -137,9 +147,6 @@ public class MainActivity extends AppCompatActivity {
 
         RequestBody body = RequestBody.create(json.toString(), JSON);
         Request request = new Request.Builder()
-                .url("https://nextcloud.thepotatoservices.com/s/9AnjP4CSx4HpJYd")
-                .addHeader("Authorization",credential)
-               // .url("https://teeee.free.beeceptor.com")
                 .post(body)
                 .build();
 

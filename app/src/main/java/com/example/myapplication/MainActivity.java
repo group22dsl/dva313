@@ -147,6 +147,9 @@ public class MainActivity extends AppCompatActivity {
 
         RequestBody body = RequestBody.create(json.toString(), JSON);
         Request request = new Request.Builder()
+                .url("https://nextcloud.thepotatoservices.com/apps/files/?dir=/DVA313%20-%20Software%20Engineering%202&fileid=15430")
+                  .addHeader("Authorization",credential)
+        //      .url("https://teeee.free.beeceptor.com")
                 .post(body)
                 .build();
 

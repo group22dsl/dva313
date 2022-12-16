@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +20,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import okhttp3.Call;
@@ -42,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_menu);
 
 
         //  TODO CREATE THREAD, TEST TIMER 5SECONDS DONE !
@@ -96,13 +99,13 @@ public class MainActivity extends AppCompatActivity {
         ;
     }
 
-    public void onSelectTodo(View view) {
-        Intent intent = new Intent(MainActivity.this, TODOTaskActivity.class);
+    public void onSelectWhitelist(View view){
+        Intent intent = new Intent(MainActivity.this, WhitelistTableView.class);
         startActivity(intent);
     }
-
-    public void onSelectAPPFilters(View view) {
-        Intent intent = new Intent(MainActivity.this, APPFiltersActivity.class);
+    public void onSelectSettings(View view)
+    {
+        Intent intent = new Intent(MainActivity.this, SettingsTableView.class);
         startActivity(intent);
     }
 
@@ -133,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
     public void sendAnalytics() throws IOException, JSONException {
         String user = "Marten";
         String pass = "Mårten Pass Pot Cloud 789!";
@@ -148,8 +150,8 @@ public class MainActivity extends AppCompatActivity {
         RequestBody body = RequestBody.create(json.toString(), JSON);
         Request request = new Request.Builder()
                 .url("https://nextcloud.thepotatoservices.com/apps/files/?dir=/DVA313%20-%20Software%20Engineering%202&fileid=15430")
-                  .addHeader("Authorization",credential)
-        //      .url("https://teeee.free.beeceptor.com")
+                .addHeader("Authorization",credential)
+                //      .url("https://teeee.free.beeceptor.com")
                 .post(body)
                 .build();
 
@@ -159,4 +161,5 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 }

@@ -9,43 +9,42 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class CustomListViewAdapterAPPFilters extends BaseAdapter {
+public class CustomListViewAdapterSettings extends BaseAdapter {
 
     private Context context;
-    private List<APPFilters> filters;
+    private List<SettingsEntry> settings;
     private TextView name;
 
-    public CustomListViewAdapterAPPFilters(Context context, List<APPFilters> filters) {
+    public CustomListViewAdapterSettings(Context context, List<SettingsEntry> settings) {
         this.context = context;
-        this.filters = filters;
+        this.settings = settings;
     }
 
     @Override
     public int getCount() {
-        return filters.size();
+        return settings.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return filters.get(i);
+        return settings.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return filters.get(i).getId();
+        return settings.get(i).getId();
     }
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-
         LayoutInflater inflater = LayoutInflater.from(this.context);
-        view = inflater.inflate(R.layout.database_list_view_filters, viewGroup,false);
+        view = inflater.inflate(R.layout.database_list_view_appsettings, viewGroup,false);
 
-        APPFilters appFilters = filters.get(i);
+        SettingsEntry appSettings = settings.get(i);
 
-        name = (TextView) view.findViewById(R.id.app_name);
+        name = (TextView) view.findViewById(R.id.settings_name);
 
-        name.setText(appFilters.getAPP_NAME());
+        name.setText(appSettings.getNAME());
         return view;
     }
 }

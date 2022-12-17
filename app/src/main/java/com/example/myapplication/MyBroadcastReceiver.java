@@ -30,8 +30,6 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         collectedData = intent.getStringExtra("data");
 
         try {
-            System.out.println("collected data");
-            System.out.println(collectedData);
             JSONObject jsonObj = new JSONObject(collectedData);
 
             SharedPreferences sharedpreferences = context.getSharedPreferences("AppWhiteList", Context.MODE_PRIVATE);

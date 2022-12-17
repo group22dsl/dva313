@@ -8,11 +8,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONException;
@@ -25,21 +22,16 @@ import java.util.Set;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.Credentials;
-import okhttp3.FormBody;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
-import okio.BufferedSink;
-
 
 public class MainActivity extends AppCompatActivity {
 
     private OkHttpClient client;
     private Request request;
+    public static List<whitelistEntry> whitelist;
+    Set<String> whiteListApps = new HashSet<String>();
 
     @SuppressLint("NewApi")
     @Override
@@ -52,22 +44,19 @@ public class MainActivity extends AppCompatActivity {
 
         registerReceiver(myBroadcastReceiver, myFilter);
 
+        SharedPreferences sharedpreferences = getSharedPreferences("AppWhiteList", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        whitelist = Database.getDatabase(this).whitelistDAO().getEntireWhitelist();
+        for(whitelistEntry list: whitelist){
+            whiteListApps.add(list.getID());
+        }
+        editor.putStringSet("whiteListedApps", whiteListApps);
+        editor.apply();
+
         //  TODO CREATE THREAD, TEST TIMER 5SECONDS DONE !
         //  TODO PARSE JSON FILE INTO DBOBJECT
         //  TODO CHANGE SETTING WITH FUNCTION
 
-
-        Thread threadSender = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    sendAnalytics();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
         Thread threadReceiver = new Thread(new Runnable() {
 
             @Override
@@ -80,24 +69,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         threadReceiver.start();
-        threadSender.start();
-
-        SharedPreferences sharedpreferences = getSharedPreferences("appSettings", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-
-        //this should get from DB
-        String[] listOfExistingScores = {"com.example.a", "true", "Three"};
-        //end
-
-        Set<String> set = new HashSet<String>();
-        for (int l = 0; l < listOfExistingScores.length; l++) {
-            set.add(listOfExistingScores[l]);
-        }
-
-        editor.putStringSet("whiteList", set);
-
-        editor.commit(); // commit changes
-        ;
     }
 
     public void onSelectWhitelist(View view){
@@ -137,30 +108,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    public void sendAnalytics() throws IOException, JSONException {
-        String user = "Marten";
-        String pass = "Mårten Pass Pot Cloud 789!";
-        String credential = Credentials.basic(user,pass);
-        OkHttpClient client = new OkHttpClient();
-        MediaType JSON = MediaType.get("application/json; charset=utf-8");
-        JSONObject json = new JSONObject();
-        json.put("title","test");
-        json.put("name","plplpl");
-
-
-        RequestBody body = RequestBody.create(json.toString(), JSON);
-        Request request = new Request.Builder()
-                .url("https://nextcloud.thepotatoservices.com/apps/files/?dir=/DVA313%20-%20Software%20Engineering%202&fileid=15430")
-                .addHeader("Authorization",credential)
-                //      .url("https://teeee.free.beeceptor.com")
-                .post(body)
-                .build();
-
-        Response response = client.newCall(request).execute();
-
-        Log.v("response",response.toString());
-
-
-    }
-
 }

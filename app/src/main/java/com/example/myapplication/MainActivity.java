@@ -47,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_menu);
 
+        MyBroadcastReceiver myBroadcastReceiver = new MyBroadcastReceiver();
+        IntentFilter myFilter = new IntentFilter("testData");
+
+        registerReceiver(myBroadcastReceiver, myFilter);
 
         //  TODO CREATE THREAD, TEST TIMER 5SECONDS DONE !
         //  TODO PARSE JSON FILE INTO DBOBJECT
@@ -77,9 +81,6 @@ public class MainActivity extends AppCompatActivity {
         });
         threadReceiver.start();
         threadSender.start();
-
-        MyBroadcastReceiver myBroadcastReceiver = new MyBroadcastReceiver();
-        IntentFilter myFilter = new IntentFilter("testData");
 
         SharedPreferences sharedpreferences = getSharedPreferences("appSettings", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();

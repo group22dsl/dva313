@@ -20,31 +20,27 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         collectedData = intent.getStringExtra("data");
-        String[] myStrings = collectedData.split("@");
-        JSONObject jsonObject = new JSONObject();
 
-        try {
+        System.out.println("INCOMMING MESSAGE RECEIVED START");
+        System.out.println(collectedData);
+        System.out.println("INCOMMING MESSAGE RECEIVED END");
 
-            SharedPreferences sharedpreferences = context.getSharedPreferences("appSettings", Context.MODE_PRIVATE);
-            Set<String> whiteListApps = new HashSet<String>();
-            whiteListApps = sharedpreferences.getStringSet("whiteList",null);
-
-            boolean contains = whiteListApps.contains(myStrings[0]);
-            if(contains == true){
-                Toast.makeText(context, "You got new message from whitelisted app" , Toast.LENGTH_SHORT ).show();
-            }
-            else{
-                Toast.makeText(context, "You got new message from blacklisted app" , Toast.LENGTH_SHORT ).show();
-            }
-            // TODO: string sent MUST have this structure for parsing into JSON to work.
-            jsonObject.put("Origin",myStrings[0]);
-            //We use our function here to turn the given string to an actual date.
-            jsonObject.put("Time",convertToDate(myStrings[1]));
-            jsonObject.put("Information",myStrings[2]);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Toast.makeText(context, jsonObject.toString(), Toast.LENGTH_LONG).show();
+//        try {
+//
+//            SharedPreferences sharedpreferences = context.getSharedPreferences("appSettings", Context.MODE_PRIVATE);
+//            Set<String> whiteListApps = new HashSet<String>();
+//            whiteListApps = sharedpreferences.getStringSet("whiteList",null);
+//
+//            boolean contains = whiteListApps.contains();
+//            if(contains == true){
+//                Toast.makeText(context, "You got new message from whitelisted app" , Toast.LENGTH_SHORT ).show();
+//            }
+//            else{
+//                Toast.makeText(context, "You got new message from blacklisted app" , Toast.LENGTH_SHORT ).show();
+//            }
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
     }
     //This function converts string to actual date.
     private String convertToDate(String stringDate) {

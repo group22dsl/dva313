@@ -20,6 +20,21 @@ public interface CacheDAO {
     @Query("SELECT * FROM CACHE WHERE id = :ID LIMIT 1")
     cacheEntry getCacheEntry(String ID);
 
+    @Query("SELECT * FROM CACHE WHERE priority = 'Low'")
+    cacheEntry getLowPriorityCache();
+
+    @Query("SELECT * FROM CACHE WHERE priority = 'Medium'")
+    cacheEntry getMediumPriorityCache();
+
+    @Query("SELECT * FROM CACHE WHERE priority = 'High'")
+    cacheEntry getHighPriorityCache();
+
+    @Query("SELECT * FROM CACHE WHERE priority = 'Critical'")
+    cacheEntry getCriticalPriorityCache();
+
+    @Query("DELETE FROM CACHE")
+    void resetCache();
+
     @Delete
     void deleteCacheEntry(cacheEntry toDelete);
 

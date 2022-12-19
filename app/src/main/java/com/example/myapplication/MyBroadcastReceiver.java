@@ -29,6 +29,9 @@ import okhttp3.Response;
 public class MyBroadcastReceiver extends BroadcastReceiver {
     public String collectedData;
     public static List<whitelistEntry> whitelist;
+    Thread threadSender;
+
+
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -45,7 +48,6 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
                 whitelist = Database.getDatabase(context).whitelistDAO().getEntireWhitelist();
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 Set<String> whiteListApps = new HashSet<String>();
-                whitelist = Database.getDatabase(context).whitelistDAO().getEntireWhitelist();
                 for(whitelistEntry list: whitelist){
                     whiteListApps.add(list.getID());
                 }
@@ -57,12 +59,20 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
                 boolean contains = whiteListAppsNew.contains(jsonObj.getString("ID"));
                 if (contains == true) {
                     Toast.makeText(context, "You got new message from whitelisted app", Toast.LENGTH_SHORT).show();
-
-                    Thread threadSender = new Thread(new Runnable() {
+                    Database.getDatabase(context)
+                            .cacheDAO()
+                            .addCacheEntry(
+                                    new cacheEntry(
+                                            jsonObj.get("ID").toString(),
+                                            jsonObj.get("Priority").toString(),
+                                            jsonObj.get("Data").toString()
+                                    )
+                            );
+                     threadSender = new Thread(new Runnable() {
                         @Override
                         public void run() {
                             try {
-                                sendAnalytics(jsonObj);
+                                sendAnalytics(context);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -83,7 +93,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    public void sendAnalytics() throws IOException, JSONException {
+    public void sendAnalytics(Context context) throws IOException, JSONException,InterruptedException {
         Log.v("HTTP_SEND", "Starting send Analytics Func");
         String user = "DVA313";
         String pass = "DVA313 Pass For Cloud 712!";
@@ -105,8 +115,18 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         // Currently only used for debugging
         // Delete when fetch from CacheDAO works
         JSONObject json = new JSONObject();
+
         json.put("title","test");
         json.put("name","plplpl22");
+
+        JSONObject json2 = new JSONObject();
+        json2.put("title","wegwegewgwe");
+        json2.put("name","sdgsdv");
+
+        JSONObject json3 = new JSONObject();
+        json3.put("object1",json2);
+        json3.put("object2",json);
+        Log.v("test",json3.toString());
 
         RequestBody body = RequestBody.create(json.toString(), JSON);
         Request request = new Request.Builder()
@@ -130,9 +150,18 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                String jsonStr = response.body().string();
                 Log.v("HTTP_SEND", "HTTPS POST sent, code: " + response.code());
+                if(response.equals("200")){
+                    //TODO remove cache entry (>^v^)> <(^v^<)
+                    Database.getDatabase(context).cacheDAO().resetCache();
+                }
             }
         });
+        // TODO SLEEP THREAD, WAKE UP ON RECEIVE
+        try {
+            threadSender.wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

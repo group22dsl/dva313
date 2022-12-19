@@ -9,7 +9,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
-@androidx.room.Database(entities = {TODOTask.class, cacheEntry.class, whitelistEntry.class, SettingsEntry.class}, version = 4)
+@androidx.room.Database(entities = {TODOTask.class, cacheEntry.class, whitelistEntry.class, SettingsEntry.class}, version = 5)
 public abstract class Database extends RoomDatabase {
 
     public static Database INSTANCE = null;

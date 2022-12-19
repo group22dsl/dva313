@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.database.whitelist;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -6,7 +6,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "WHITELIST")
-public class whitelistEntry {
+public class WhitelistEntry {
 
     @PrimaryKey
     @NonNull
@@ -17,7 +17,7 @@ public class whitelistEntry {
     private int SEND_FREQ;
 
 
-    public whitelistEntry(String ID, int SEND_FREQ) {
+    public WhitelistEntry(String ID, int SEND_FREQ) {
         this.ID = ID;
         this.SEND_FREQ = SEND_FREQ;
     }

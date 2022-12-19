@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.database.whitelist;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,13 +8,17 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.ui.CustomListViewAdapterWhitelist;
+import com.example.myapplication.R;
+import com.example.myapplication.database.Database;
+
 import java.util.List;
 
-public class WhitelistTableView extends AppCompatActivity {
+public class WhitelistTableViewActivity extends AppCompatActivity {
 
     public ListView databaseListView;
     public static final String ENTRY_ID = "";
-    public static List<whitelistEntry> whitelist;
+    public static List<WhitelistEntry> whitelist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +32,7 @@ public class WhitelistTableView extends AppCompatActivity {
         databaseListView.setAdapter(adapter);
 
         databaseListView.setOnItemClickListener((adapterView, view, i, l) -> {
-            Intent intent = new Intent(WhitelistTableView.this, WhitelistEntryView.class);
+            Intent intent = new Intent(WhitelistTableViewActivity.this, WhitelistEntryViewActivity.class);
             intent.putExtra(ENTRY_ID, i);
             startActivity(intent);
         });
@@ -36,14 +40,14 @@ public class WhitelistTableView extends AppCompatActivity {
 
     public void onAdd(View view)
     {
-        Intent intent = new Intent(this, WhitelistEntryView.class);
+        Intent intent = new Intent(this, WhitelistEntryViewActivity.class);
         startActivity(intent);
     }
 
     public void clearTable(View view)
     {
         Database.getDatabase(this).whitelistDAO().resetTable();
-        Intent intentClear = new Intent(this, WhitelistTableView.class);
+        Intent intentClear = new Intent(this, WhitelistTableViewActivity.class);
         startActivity(intentClear);
         Toast.makeText(this, "Successfully deleted all tables", Toast.LENGTH_SHORT).show();
     }

@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.database.cache;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -12,33 +12,33 @@ import java.util.List;
 public interface CacheDAO {
 
     @Insert
-    void addCacheEntry(cacheEntry cache);
+    void addCacheEntry(CacheEntry cache);
 
     @Query("SELECT * FROM CACHE")
-    List<cacheEntry> getEntireCache();
+    List<CacheEntry> getEntireCache();
 
     @Query("SELECT * FROM CACHE WHERE id = :ID LIMIT 1")
-    cacheEntry getCacheEntry(String ID);
+    CacheEntry getCacheEntry(String ID);
 
     @Query("SELECT * FROM CACHE WHERE priority = 'Low'")
-    cacheEntry getLowPriorityCache();
+    List<CacheEntry> getLowPriorityCache();
 
     @Query("SELECT * FROM CACHE WHERE priority = 'Medium'")
-    cacheEntry getMediumPriorityCache();
+    List<CacheEntry> getMediumPriorityCache();
 
     @Query("SELECT * FROM CACHE WHERE priority = 'High'")
-    cacheEntry getHighPriorityCache();
+    List<CacheEntry> getHighPriorityCache();
 
     @Query("SELECT * FROM CACHE WHERE priority = 'Critical'")
-    cacheEntry getCriticalPriorityCache();
+    List<CacheEntry> getCriticalPriorityCache();
 
     @Query("DELETE FROM CACHE")
     void resetCache();
 
     @Delete
-    void deleteCacheEntry(cacheEntry toDelete);
+    void deleteCacheEntry(CacheEntry toDelete);
 
     @Update
-    void updateCacheEntry(cacheEntry toUpdate);
+    void updateCacheEntry(CacheEntry toUpdate);
 
 }

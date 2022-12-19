@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.database.settings;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class SettingsEntryView extends AppCompatActivity {
+import com.example.myapplication.R;
+import com.example.myapplication.database.Database;
+
+public class SettingsEntryViewActivity extends AppCompatActivity {
 
     private EditText name;
     private EditText value;
@@ -27,8 +30,8 @@ public class SettingsEntryView extends AppCompatActivity {
 
         if (bundle != null)
         {
-            int id = bundle.getInt(SettingsTableView.ENTRY_ID);
-            settings = SettingsTableView.settings.get(id);
+            int id = bundle.getInt(SettingsTableViewActivity.ENTRY_ID);
+            settings = SettingsTableViewActivity.settings.get(id);
 
             name.setText(settings.getNAME());
             value.setText(settings.getVALUE());
@@ -52,13 +55,13 @@ public class SettingsEntryView extends AppCompatActivity {
             Database.getDatabase(this).settingsDAO().addSettings(createSettings);
         }
 
-        Intent intent = new Intent(this, SettingsTableView.class);
+        Intent intent = new Intent(this, SettingsTableViewActivity.class);
         startActivity(intent);
     }
 
     public void cancelButton(View view)
     {
-        Intent intentCancel = new Intent(this, SettingsTableView.class);
+        Intent intentCancel = new Intent(this, SettingsTableViewActivity.class);
         startActivity(intentCancel);
     }
 
@@ -66,7 +69,7 @@ public class SettingsEntryView extends AppCompatActivity {
         if (settings != null)
         {
             Database.getDatabase(this).settingsDAO().deleteAPPSettings(settings);
-            Intent intentDelete = new Intent(this, SettingsTableView.class);
+            Intent intentDelete = new Intent(this, SettingsTableViewActivity.class);
             startActivity(intentDelete);
         }
         else

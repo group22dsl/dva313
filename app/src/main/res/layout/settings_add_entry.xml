@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#232289"
     android:backgroundTint="#232289"
-    tools:context=".SettingsEntryView">
+    tools:context=".database.settings.SettingsEntryViewActivity">
 
     <EditText
         android:id="@+id/settings_value_text"

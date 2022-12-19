@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.database.whitelist;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -12,19 +12,19 @@ import java.util.List;
 public interface WhitelistDAO {
 
     @Insert
-    void addWhitelistEntry(whitelistEntry whitelist);
+    void addWhitelistEntry(WhitelistEntry whitelist);
 
     @Query("SELECT * FROM WHITELIST")
-    List<whitelistEntry> getEntireWhitelist();
+    List<WhitelistEntry> getEntireWhitelist();
 
     @Query("SELECT * FROM WHITELIST WHERE id = :ID LIMIT 1")
-    whitelistEntry getWhitelistEntry(String ID);
+    WhitelistEntry getWhitelistEntry(String ID);
 
     @Delete
-    void deleteWhitelist(whitelistEntry toDelete);
+    void deleteWhitelist(WhitelistEntry toDelete);
 
     @Update
-    void updateWhitelist(whitelistEntry toUpdate);
+    void updateWhitelist(WhitelistEntry toUpdate);
 
     @Query("DELETE FROM WHITELIST")
     void resetTable();

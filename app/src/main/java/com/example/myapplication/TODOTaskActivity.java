@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.myapplication.database.Database;
+import com.example.myapplication.ui.CustomListViewAdapter;
+
 import java.util.List;
 
 public class TODOTaskActivity extends AppCompatActivity {

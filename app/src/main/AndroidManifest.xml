@@ -14,14 +14,14 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".SettingsEntryView"
+            android:name=".database.settings.SettingsEntryViewActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".SettingsTableView"
+            android:name=".database.settings.SettingsTableViewActivity"
             android:label="Settings table"
             android:parentActivityName=".MainActivity"
             android:exported="false">
@@ -30,15 +30,15 @@
                 android:value="" />
         </activity> <!-- TODO add intent filter -->
         <receiver
-            android:name=".MyBroadcastReceiver"
+            android:name=".communication.LocalRecv"
             android:enabled="true"
             android:exported="true" />
 
         <activity
-            android:name=".WhitelistEntryView"
+            android:name=".database.whitelist.WhitelistEntryViewActivity"
             android:label="Whitelist Entry"
             android:exported="false"
-            android:parentActivityName=".WhitelistTableView">
+            android:parentActivityName=".database.whitelist.WhitelistTableViewActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -52,7 +52,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".WhitelistTableView"
+            android:name=".database.whitelist.WhitelistTableViewActivity"
             android:label="Whitelist Table"
 
             android:exported="false"

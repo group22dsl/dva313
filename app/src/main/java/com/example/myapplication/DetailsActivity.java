@@ -1,13 +1,13 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Insert;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.myapplication.database.Database;
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -21,8 +21,8 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
-        title = (EditText) findViewById(R.id.title_input);
-        description = (EditText) findViewById(R.id.description_input);
+        title = findViewById(R.id.title_input);
+        description = findViewById(R.id.description_input);
         task = null;
 
         Intent intent = getIntent();
@@ -41,14 +41,11 @@ public class DetailsActivity extends AppCompatActivity {
 
     public void onSave(View view)
     {
-
-        if (task != null)
-        {
+        if (task != null) {
             TODOTask updateTask = new TODOTask(task.getId(), title.getText().toString(), description.getText().toString());
             Database.getDatabase(this).dao().updateTask(updateTask);
         }
-        else
-        {
+        else {
             TODOTask task = new TODOTask(title.getText().toString(), description.getText().toString());
             Database.getDatabase(this).dao().addTask(task);
 

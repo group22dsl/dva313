@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/settings"
     android:onClick="resetTables"
-    tools:context=".SettingsTableView">
+    tools:context=".database.settings.SettingsTableViewActivity">
 
     <ListView
         android:id="@+id/database_list_Appsettings"

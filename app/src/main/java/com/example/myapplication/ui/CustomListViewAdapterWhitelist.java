@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.ui;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,15 +7,18 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.myapplication.R;
+import com.example.myapplication.database.whitelist.WhitelistEntry;
+
 import java.util.List;
 
 public class CustomListViewAdapterWhitelist extends BaseAdapter {
 
     private Context context;
-    private List<whitelistEntry> filters;
+    private List<WhitelistEntry> filters;
     private TextView name;
 
-    public CustomListViewAdapterWhitelist(Context context, List<whitelistEntry> filters) {
+    public CustomListViewAdapterWhitelist(Context context, List<WhitelistEntry> filters) {
         this.context = context;
         this.filters = filters;
     }
@@ -40,7 +43,7 @@ public class CustomListViewAdapterWhitelist extends BaseAdapter {
         LayoutInflater inflater = LayoutInflater.from(this.context);
         view = inflater.inflate(R.layout.database_list_view_filters, viewGroup,false);
 
-        whitelistEntry appFilters = filters.get(i);
+        WhitelistEntry appFilters = filters.get(i);
 
         name = (TextView) view.findViewById(R.id.app_name);
 

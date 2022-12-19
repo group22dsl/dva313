@@ -1,15 +1,15 @@
-package com.example.myapplication;
+package com.example.myapplication.database.cache;
 
-import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "CACHE")
-public class cacheEntry {
+public class CacheEntry {
 
-    @PrimaryKey
-    @NonNull
+    @PrimaryKey(autoGenerate = true)
+    private int key;
+
     @ColumnInfo(name = "id")
     private String ID;
 
@@ -20,7 +20,7 @@ public class cacheEntry {
     private String DATA;
 
 
-    public cacheEntry(String ID, String PRIORITY, String DATA) {
+    public CacheEntry(String ID, String PRIORITY, String DATA) {
         this.ID = ID;
         this.PRIORITY = PRIORITY;
         this.DATA = DATA;
@@ -48,5 +48,13 @@ public class cacheEntry {
 
     public void setDATA(String DATA) {
         this.DATA = DATA;
+    }
+
+    public int getKey() {
+        return key;
+    }
+
+    public void setKey(int key) {
+        this.key = key;
     }
 }

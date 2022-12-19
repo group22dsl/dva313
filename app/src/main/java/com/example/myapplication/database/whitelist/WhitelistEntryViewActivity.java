@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.database.whitelist;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,11 +8,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class WhitelistEntryView extends AppCompatActivity {
+import com.example.myapplication.R;
+import com.example.myapplication.database.Database;
+
+public class WhitelistEntryViewActivity extends AppCompatActivity {
 
     private EditText name;
     private EditText send_freq;
-    private whitelistEntry WhitelistEntry;
+    private com.example.myapplication.database.whitelist.WhitelistEntry WhitelistEntry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +30,8 @@ public class WhitelistEntryView extends AppCompatActivity {
 
         if(bundle != null)
         {
-            int id = bundle.getInt(WhitelistTableView.ENTRY_ID);
-            WhitelistEntry = WhitelistTableView.whitelist.get(id);
+            int id = bundle.getInt(WhitelistTableViewActivity.ENTRY_ID);
+            WhitelistEntry = WhitelistTableViewActivity.whitelist.get(id);
             name.setText(WhitelistEntry.getID());
         }
     }
@@ -43,16 +46,16 @@ public class WhitelistEntryView extends AppCompatActivity {
         }
         else
         {
-            whitelistEntry createWhitelist = new whitelistEntry(name.getText().toString(), Integer.parseInt(send_freq.getText().toString()));
+            com.example.myapplication.database.whitelist.WhitelistEntry createWhitelist = new WhitelistEntry(name.getText().toString(), Integer.parseInt(send_freq.getText().toString()));
             Database.getDatabase(this).whitelistDAO().addWhitelistEntry(createWhitelist);
         }
-        Intent intent = new Intent(this, WhitelistTableView.class);
+        Intent intent = new Intent(this, WhitelistTableViewActivity.class);
         startActivity(intent);
     }
 
     public void cancelButton(View view)
     {
-        Intent intentCancel = new Intent(this, WhitelistTableView.class);
+        Intent intentCancel = new Intent(this, WhitelistTableViewActivity.class);
         startActivity(intentCancel);
     }
 
@@ -61,7 +64,7 @@ public class WhitelistEntryView extends AppCompatActivity {
         if (WhitelistEntry != null)
         {
             Database.getDatabase(this).whitelistDAO().deleteWhitelist(WhitelistEntry);
-            Intent intentDelete = new Intent(this, WhitelistTableView.class);
+            Intent intentDelete = new Intent(this, WhitelistTableViewActivity.class);
             startActivity(intentDelete);
         }
         else

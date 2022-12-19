@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.database.settings;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,9 +8,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.ui.CustomListViewAdapterSettings;
+import com.example.myapplication.R;
+import com.example.myapplication.database.Database;
+
 import java.util.List;
 
-public class SettingsTableView extends AppCompatActivity {
+public class SettingsTableViewActivity extends AppCompatActivity {
 
     public ListView databaseListView;
     public static final String ENTRY_ID = "";
@@ -28,7 +32,7 @@ public class SettingsTableView extends AppCompatActivity {
         databaseListView.setAdapter(adapter);
 
         databaseListView.setOnItemClickListener((adapterView, view, i, l) -> {
-            Intent intent = new Intent(SettingsTableView.this, SettingsEntryView.class);
+            Intent intent = new Intent(SettingsTableViewActivity.this, SettingsEntryViewActivity.class);
             intent.putExtra(ENTRY_ID, i);
             startActivity(intent);
         });
@@ -36,14 +40,14 @@ public class SettingsTableView extends AppCompatActivity {
 
     public void onAdd(View view)
     {
-        Intent intent = new Intent(this, SettingsEntryView.class);
+        Intent intent = new Intent(this, SettingsEntryViewActivity.class);
         startActivity(intent);
     }
 
     public void deleteTable(View view)
     {
         Database.getDatabase(this).settingsDAO().resetTable();
-        Intent intentClear = new Intent(this, SettingsTableView.class);
+        Intent intentClear = new Intent(this, SettingsTableViewActivity.class);
         startActivity(intentClear);
         Toast.makeText(this, "Successfully deleted all tables", Toast.LENGTH_SHORT).show();
     }

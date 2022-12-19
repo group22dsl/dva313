@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,6 +17,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Credentials;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -78,20 +83,56 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    public void sendAnalytics(JSONObject jsonObj) throws IOException, JSONException {
-        OkHttpClient client = new OkHttpClient();
+    public void sendAnalytics() throws IOException, JSONException {
+        Log.v("HTTP_SEND", "Starting send Analytics Func");
+        String user = "DVA313";
+        String pass = "DVA313 Pass For Cloud 712!";
+        String credential = Credentials.basic(user, pass);
         MediaType JSON = MediaType.get("application/json; charset=utf-8");
-
-        RequestBody body = RequestBody.create(jsonObj.toString(), JSON);
-
-        Request request = new Request.Builder()
-                //.url("https://nextcloud.thepotatoservices.com/apps/files/?dir=/DVA313%20-%20Software%20Engineering%202&fileid=15430")
-                .url("https://savejsonfile.free.beeceptor.com")
-                .post(body)
+        OkHttpClient client = new OkHttpClient
+                .Builder()
+                .authenticator((Route, Response) -> {
+                    if (Response.request().header("Authorization") != null) {
+                        Log.v("HTTP_SEND", "Failed to Authenticate");
+                        return null; // Give up, we've already attempted to authenticate.
+                    }
+                    return Response.request().newBuilder()
+                            .header("Authorization", credential)
+                            .build();
+                })
                 .build();
 
-        Response response = client.newCall(request).execute();
+        // Currently only used for debugging
+        // Delete when fetch from CacheDAO works
+        JSONObject json = new JSONObject();
+        json.put("title","test");
+        json.put("name","plplpl22");
 
-        Log.v("response",response.toString());
+        RequestBody body = RequestBody.create(json.toString(), JSON);
+        Request request = new Request.Builder()
+                .url("https://nextcloud.thepotatoservices.com/" +       // URL
+                        "remote.php/dav/files/" +                       // WebDAV interface
+                        "DVA313" +                                     // User
+                        "/DVA313%20-%20Software%20Engineering%202/" +    // Target
+                        "Project%20Files/Recv%20Folder/" +
+                        "test.json"                                     // Filename
+                )
+                .put(body)
+                .build();
+
+        Log.v("HTTP_SEND", "Sending to Cloud");
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                e.printStackTrace();
+                Log.d("HTTP_SEND", "HTTP request failed, Error: " + e);
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                String jsonStr = response.body().string();
+                Log.v("HTTP_SEND", "HTTPS POST sent, code: " + response.code());
+            }
+        });
     }
 }

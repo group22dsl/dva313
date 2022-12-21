@@ -7,12 +7,14 @@ import androidx.annotation.NonNull;
 import com.example.myapplication.database.Database;
 import com.example.myapplication.database.cache.CacheEntry;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -41,19 +43,21 @@ public class NetReq {
                             .header("Authorization", credential)
                             .build();
                 })
+                .connectTimeout(15, TimeUnit.SECONDS)
                 .build();
     }
 
     public static int sendAnalyticsToCloud() throws IOException, JSONException, InterruptedException {
-        JSONObject toSend = new JSONObject();   // Json to send
+        JSONArray toSend = new JSONArray();   // Json to send
         final int[] return_code = new int[1];   // Return code from sender, so it can be returned
         String date = LocalDateTime.now().toString().substring(0, 19).replace(':', '_');
         List<CacheEntry> cache = Database.INSTANCE.cacheDAO().getEntireCache();
         for(int i = 0; i < cache.size(); i++){
             toSend.put(
-                    cache.get(i).getID(),
                     new JSONObject()
+                            .put("ID", cache.get(i).getID())
                             .put("Priority", cache.get(i).getPRIORITY())
+                            .put("Tags", cache.get(i).getTAGS())
                             .put("Data", cache.get(i).getDATA())
             );
         }

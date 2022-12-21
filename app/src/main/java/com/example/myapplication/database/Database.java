@@ -27,7 +27,7 @@ import java.util.List;
                 WhitelistEntry.class,
                 SettingsEntry.class
         },
-        version = 2)
+        version = 5)
 public abstract class Database extends RoomDatabase {
 
     public static Database              INSTANCE    = null;

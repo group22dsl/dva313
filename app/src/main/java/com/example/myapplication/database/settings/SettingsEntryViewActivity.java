@@ -44,7 +44,7 @@ public class SettingsEntryViewActivity extends AppCompatActivity {
         {
             settings.setNAME(name.getText().toString());
             settings.setVALUE(value.getText().toString());
-            Database.getDatabase(this).settingsDAO().updateAPPSettings(settings);
+            Database.INSTANCE.settingsDAO().updateAPPSettings(settings);
         }
         else
         {
@@ -52,10 +52,11 @@ public class SettingsEntryViewActivity extends AppCompatActivity {
                     name.getText().toString(),
                     value.getText().toString()
             );
-            Database.getDatabase(this).settingsDAO().addSettings(createSettings);
+            Database.INSTANCE.settingsDAO().addSettings(createSettings);
         }
 
         Intent intent = new Intent(this, SettingsTableViewActivity.class);
+        Database.settings = Database.INSTANCE.settingsDAO().getAllSettings();
         startActivity(intent);
     }
 

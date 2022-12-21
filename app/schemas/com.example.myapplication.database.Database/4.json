@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 5,
-    "identityHash": "a7b86fc75fe60f814f9c8922a3a2297b",
+    "version": 4,
+    "identityHash": "ddd057eae1b2a641aad0cfbda67620b9",
     "entities": [
       {
         "tableName": "todo_tasks",
@@ -82,12 +82,18 @@
       },
       {
         "tableName": "WHITELIST",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `send_freq` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "ID",
             "columnName": "id",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "SEND_FREQ",
+            "columnName": "send_freq",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -136,7 +142,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a7b86fc75fe60f814f9c8922a3a2297b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ddd057eae1b2a641aad0cfbda67620b9')"
     ]
   }
 }

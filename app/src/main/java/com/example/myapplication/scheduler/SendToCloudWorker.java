@@ -7,6 +7,7 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import com.example.myapplication.communication.NetReq;
+import com.example.myapplication.database.Database;
 
 import org.json.JSONException;
 
@@ -23,13 +24,17 @@ public class SendToCloudWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
+        int code = -1;
         try {
-            if(200 >= NetReq.sendAnalyticsToCloud()
-                    && NetReq.sendAnalyticsToCloud() < 300 )
-                return Result.success();
+            code = NetReq.sendAnalyticsToCloud();
+
         }
         catch (IOException | JSONException | InterruptedException e) {
             e.printStackTrace();
+        }
+        if(200 >= code && code < 300 ){
+            Database.INSTANCE.cacheDAO().resetCache();
+            return Result.success();
         }
         return Result.failure();
     }

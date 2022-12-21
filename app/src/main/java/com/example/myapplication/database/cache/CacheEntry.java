@@ -16,13 +16,17 @@ public class CacheEntry {
     @ColumnInfo(name = "priority")
     private String PRIORITY;
 
+    @ColumnInfo(name = "tags")
+    private String TAGS;
+
     @ColumnInfo(name = "data")
     private String DATA;
 
 
-    public CacheEntry(String ID, String PRIORITY, String DATA) {
+    public CacheEntry(String ID, String PRIORITY, String TAGS, String DATA) {
         this.ID = ID;
         this.PRIORITY = PRIORITY;
+        this.TAGS = TAGS;
         this.DATA = DATA;
     }
 
@@ -56,5 +60,13 @@ public class CacheEntry {
 
     public void setKey(int key) {
         this.key = key;
+    }
+
+    public String getTAGS() {
+        return TAGS;
+    }
+
+    public void setTAGS(String TAGS) {
+        this.TAGS = TAGS;
     }
 }

@@ -24,9 +24,15 @@ public class LocalRecv extends BroadcastReceiver {
                         context, "Whitelist is empty", Toast.LENGTH_SHORT).show();
                 return;
             }
-
+            boolean invalid = true;
             JSONObject jsonObj = new JSONObject(intent.getStringExtra("data")); // Add recieved string to Json object
-            if(!Database.whitelist.contains(jsonObj.getString("ID"))){
+            for(int i = 0; i < Database.whitelist.size(); i++){
+                if(Database.whitelist.get(i).getID().equals(jsonObj.getString("ID"))){
+                    invalid = false;
+                    break;
+                }
+            }
+            if(invalid){
                 Toast.makeText(context,
                         "Discarded Message from Blacklisted App", Toast.LENGTH_SHORT).show();
                 return;
@@ -39,6 +45,7 @@ public class LocalRecv extends BroadcastReceiver {
                     new CacheEntry(
                             jsonObj.get("ID").toString(),
                             jsonObj.get("Priority").toString(),
+                            jsonObj.get("Tags").toString(),
                             jsonObj.get("Data").toString()
                     )
             );

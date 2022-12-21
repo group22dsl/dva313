@@ -23,7 +23,6 @@ public class WhitelistEntryViewActivity extends AppCompatActivity {
         setContentView(R.layout.whitelist_add_entry);
 
         name =      (EditText) findViewById(R.id.name_text);
-        send_freq = (EditText) findViewById(R.id.send_freq_num);
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -41,15 +40,15 @@ public class WhitelistEntryViewActivity extends AppCompatActivity {
         if(WhitelistEntry != null)
         {
             WhitelistEntry.setID(name.getText().toString());
-            WhitelistEntry.setSEND_FREQ(Integer.parseInt(send_freq.getText().toString()));
-            Database.getDatabase(this).whitelistDAO().updateWhitelist(WhitelistEntry);
+            Database.INSTANCE.whitelistDAO().updateWhitelist(WhitelistEntry);
         }
         else
         {
-            com.example.myapplication.database.whitelist.WhitelistEntry createWhitelist = new WhitelistEntry(name.getText().toString(), Integer.parseInt(send_freq.getText().toString()));
-            Database.getDatabase(this).whitelistDAO().addWhitelistEntry(createWhitelist);
+            com.example.myapplication.database.whitelist.WhitelistEntry createWhitelist = new WhitelistEntry(name.getText().toString());
+            Database.INSTANCE.whitelistDAO().addWhitelistEntry(createWhitelist);
         }
         Intent intent = new Intent(this, WhitelistTableViewActivity.class);
+        Database.whitelist = Database.INSTANCE.whitelistDAO().getEntireWhitelist();
         startActivity(intent);
     }
 

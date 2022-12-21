@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.ListenableWorker;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
@@ -18,6 +20,9 @@ import com.example.myapplication.database.settings.SettingsTableViewActivity;
 import com.example.myapplication.database.whitelist.WhitelistTableViewActivity;
 import com.example.myapplication.scheduler.SendToCloudWorker;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
@@ -72,11 +77,29 @@ public class MainActivity extends AppCompatActivity {
         );
         startActivity(intent);
     }
+
     public void onSelectSettings(View view) {
         Intent intent = new Intent(
                 MainActivity.this,
                 SettingsTableViewActivity.class
         );
         startActivity(intent);
+    }
+
+    public void onSendToCloud(View view){
+        int code = -1;
+        try {
+            code = NetReq.sendAnalyticsToCloud();
+
+        }
+        catch (IOException | JSONException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        Toast.makeText(this,
+                "Code: " + code, Toast.LENGTH_SHORT).show();
+
+        if(200 >= code && code < 300 ){
+            Database.INSTANCE.cacheDAO().resetCache();
+        }
     }
 }

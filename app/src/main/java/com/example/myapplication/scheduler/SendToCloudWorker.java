@@ -32,6 +32,7 @@ public class SendToCloudWorker extends Worker {
         catch (IOException | JSONException | InterruptedException e) {
             e.printStackTrace();
         }
+        if(code == -200) return Result.success();
         if(200 >= code && code < 300 ){
             Database.INSTANCE.cacheDAO().resetCache();
             return Result.success();

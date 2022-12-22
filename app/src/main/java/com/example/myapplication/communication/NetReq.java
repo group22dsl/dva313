@@ -44,6 +44,8 @@ public class NetReq {
                             .build();
                 })
                 .connectTimeout(15, TimeUnit.SECONDS)
+                .readTimeout(15, TimeUnit.SECONDS)
+                .writeTimeout(15, TimeUnit.SECONDS)
                 .build();
     }
 
@@ -52,6 +54,7 @@ public class NetReq {
         final int[] return_code = new int[1];   // Return code from sender, so it can be returned
         String date = LocalDateTime.now().toString().substring(0, 19).replace(':', '_');
         List<CacheEntry> cache = Database.INSTANCE.cacheDAO().getEntireCache();
+        if(cache.size() == 0) return -200;
         for(int i = 0; i < cache.size(); i++){
             toSend.put(
                     new JSONObject()

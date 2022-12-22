@@ -95,11 +95,14 @@ public class MainActivity extends AppCompatActivity {
         catch (IOException | JSONException | InterruptedException e) {
             e.printStackTrace();
         }
-        Toast.makeText(this,
-                "Code: " + code, Toast.LENGTH_SHORT).show();
-
+        if(code == -200){
+            Toast.makeText(this, "Cache was Empty, nothing uploaded to cloud storage", Toast.LENGTH_SHORT).show();
+        }
         if(200 >= code && code < 300 ){
             Database.INSTANCE.cacheDAO().resetCache();
+            Toast.makeText(this, "Cache entries successfully sent to cloud storage", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this, "Failed to send cache entries to cloud storage", Toast.LENGTH_SHORT).show();
         }
     }
 }

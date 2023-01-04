@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
+import java.util.Date;
 
 import androidx.annotation.NonNull;
 
@@ -42,6 +43,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
 
             whiteListAppsNew = sharedpreferences.getStringSet("whiteListedApps", null);
             if(whiteListAppsNew == null || whiteListAppsNew.size() == 0 ){
+                System.out.println("UPDATE FROM 02");
                 whitelist = Database.getDatabase(context).whitelistDAO().getEntireWhitelist();
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 Set<String> whiteListApps = new HashSet<String>();
@@ -83,7 +85,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    public void sendAnalytics() throws IOException, JSONException {
+    public void sendAnalytics(JSONObject jsonObj) throws IOException, JSONException {
         Log.v("HTTP_SEND", "Starting send Analytics Func");
         String user = "DVA313";
         String pass = "DVA313 Pass For Cloud 712!";
@@ -104,18 +106,23 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
 
         // Currently only used for debugging
         // Delete when fetch from CacheDAO works
-        JSONObject json = new JSONObject();
-        json.put("title","test");
-        json.put("name","plplpl22");
+//        JSONObject json = new JSONObject();
+//        json.put("title","test");
+//        json.put("name","plplpl22");
 
-        RequestBody body = RequestBody.create(json.toString(), JSON);
+        Date date = new Date();
+        Number currentDateTime = date.getTime();
+        String fileName = jsonObj.getString("ID");
+        String objectFileName = currentDateTime.toString() +"_"+fileName;
+
+        RequestBody body = RequestBody.create(jsonObj.toString(), JSON);
         Request request = new Request.Builder()
                 .url("https://nextcloud.thepotatoservices.com/" +       // URL
                         "remote.php/dav/files/" +                       // WebDAV interface
                         "DVA313" +                                     // User
                         "/DVA313%20-%20Software%20Engineering%202/" +    // Target
-                        "Project%20Files/Recv%20Folder/" +
-                        "test.json"                                     // Filename
+                        "Project%20Files/Recv%20Folder/" +objectFileName+
+                        ".json"                                     // Filename
                 )
                 .put(body)
                 .build();

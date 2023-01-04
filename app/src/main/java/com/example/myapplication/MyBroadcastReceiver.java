@@ -43,7 +43,6 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
 
             whiteListAppsNew = sharedpreferences.getStringSet("whiteListedApps", null);
             if(whiteListAppsNew == null || whiteListAppsNew.size() == 0 ){
-                System.out.println("UPDATE FROM 02");
                 whitelist = Database.getDatabase(context).whitelistDAO().getEntireWhitelist();
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 Set<String> whiteListApps = new HashSet<String>();

@@ -9,31 +9,13 @@
 
 
     <Button
-        android:id="@+id/select_todo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="#232289"
-        android:onClick="onSelectTodo"
-        android:text="select todo"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/select_appfilters"
-        android:background="@drawable/style"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.957" />
-
-    <Button
         android:id="@+id/select_appfilters"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:backgroundTint="#232289"
         android:background="@drawable/style"
+        android:backgroundTint="#232289"
         android:onClick="onSelectWhitelist"
         android:text="Whitelist Table View"
         android:textColor="@color/white"
@@ -42,45 +24,41 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/testUItext"
-        app:layout_constraintVertical_bias="0.953" />
+        app:layout_constraintVertical_bias="0.899" />
 
     <Button
         android:id="@+id/select_settings"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="556dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/style"
         android:backgroundTint="#232289"
         android:onClick="onSelectSettings"
         android:text="App Configuration"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/select_todo"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.953" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/sendButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="488dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/style"
         android:backgroundTint="#232289"
         android:onClick="onSendToCloud"
         android:text="Send to cloud"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/select_todo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.819" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/welcome_title"

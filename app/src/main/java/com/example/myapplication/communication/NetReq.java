@@ -64,6 +64,7 @@ public class NetReq {
                             .put("Data", cache.get(i).getDATA())
             );
         }
+
         MediaType JSON = MediaType.get("application/json; charset=utf-8");
         RequestBody body = RequestBody.create(toSend.toString(), JSON);
         Request request = new Request.Builder()
